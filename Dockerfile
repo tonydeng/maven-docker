@@ -11,7 +11,7 @@ RUN apk update && \
     apk add curl && \
     curl -sSL http://mirror.navercorp.com/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz -o /tmp/maven.tar.gz && \
     mkdir -p /opt/repository && \
-    tar -Czxvf /opt /tmp/maven.tar.gz && \
+    tar zxf  -C /opt /tmp/maven.tar.gz && \
     ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven && \
     rm -rf /var/cache/apk/* \
             /tmp/*
