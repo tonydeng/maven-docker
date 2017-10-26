@@ -8,7 +8,7 @@ ENV MAVEN_VERSION=3.5.2 \
     PATH=$PATH:$MAVEN_HOME/bin
 
 RUN apk update && \
-    && apk add curl && \
+    apk add curl && \
     curl -sSL http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz -o /tmp/maven.tar.gz && \
     mkdir -p /opt/repository && \
     tar -Czxvf /opt /tmp/maven.tar.gz && \
