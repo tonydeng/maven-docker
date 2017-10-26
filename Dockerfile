@@ -7,15 +7,15 @@ ENV MAVEN_VERSION=3.5.2 \
     MAVEN_HOME=/opt/maven \
     PATH=$PATH:$MAVEN_HOME/bin
 
-RUN apk update && \
-    apk add curl && \
-    curl -sSL http://mirror.navercorp.com/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz -o /tmp/maven.tar.gz && \
-    mkdir -p /opt/repository && \
-    tar zxf /tmp/maven.tar.gz && \
-    mv /tmp/apache-maven-${MAVEN_VERSION} /opt/ && \
-    ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven && \
-    rm -rf /var/cache/apk/* \
-            /tmp/*
+# install maven
+RUN wget http://mirror.navercorp.com/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz && \
+	tar xzf apache-maven-$MAVEN_VERSION-bin.tar.gz && \
+	mv apache-maven-$MAVEN_VERSION /opt/ && \
+    ln -s /opt/apache-maven-$MAVEN_VERSION /opt/maven
+
+# clean
+RUN rm -rf /var/cache/apk/* \
+    rm apache-maven-$MAVEN_VERSION-bin.tar.gz
 
 COPY settings.xml /opt/maven/settings.xml
 
